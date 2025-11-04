@@ -19,7 +19,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/home', function () {
+return view('home');
+})->name('home');
+
 
 Route::get('/principal', [MainController::class, 'index']);
 
 Route::resource('/aluno', AlunoController::class);
+
+Route::get('/report/aluno', [AlunoController::class, 'report'])->name('report.aluno');

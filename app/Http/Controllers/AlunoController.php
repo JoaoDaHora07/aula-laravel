@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Aluno;
 use Illuminate\Http\Request;
+use App\Models\Curso;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class AlunoController extends Controller
 {
@@ -23,9 +25,9 @@ class AlunoController extends Controller
      */
     public function create()
     {
+        $cursos = Curso::all();
+        return view("aluno.create",compact('cursos'));
 
-
-        return view('aluno.create');
         //
     }
 
@@ -34,14 +36,28 @@ class AlunoController extends Controller
      */
     public function store(Request $request)
     {
-        $aluno = new Aluno();
 
-        $aluno->nome = $request->nome;
-        $aluno->curso = $request->curso;
-        $aluno->ano = $request->ano;
+        $curso = Curso::find($request->curso);
+        if(isset($curso)){
+            $aluno = new Aluno();
+            $aluno->nome = mb_strtoupper($request->nome, 'UTF-8');
+            $aluno->ano = $request->ano;
+            $aluno->curso()->associate($curso);
+            $aluno->save();
+        
+            if($request->hasFile('foto')) {
+            // Upload File
+            $extensao_arq = $request->file('foto')->getClientOriginalExtension();
+            $name = $aluno->id.'_'.time().'.'.$extensao_arq;
+            $request->file('foto')->storeAs('fotos', $name, ['disk' => 'public']);
+            $aluno->foto = 'fotos/'.$name;
+            $aluno->save();
 
-        $aluno->save();
+            }
+        
 
+
+        }
 
         return redirect()->route('aluno.index');
         //
@@ -118,4 +134,14 @@ class AlunoController extends Controller
         return redirect()->route('aluno.index');
         //
     }
+
+    public function report() {
+        $alunos = Aluno::with(['curso'])->get();
+        // Gera um PDF a partir de uma view Blade
+        $pdf = Pdf::loadView('aluno.report', ['alunos' => $alunos]);
+        // Exibe o PDF no navegador
+        return $pdf->stream('document.pdf');
+        // Ou Faz o download do PDF
+        // return $pdf->download('document.pdf');
+}
 }

@@ -1,0 +1,111 @@
+body {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 10pt;
+            margin: 1cm 0.5cm;
+            color: #000;
+        }
+        .texto-marca-dagua {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-45deg); /* Centraliza e gira o texto */
+            font-size: 7em;
+            color: #888;
+            opacity: 0.3;
+            pointer-events: none;
+            white-space: nowrap;
+            z-index: 0;
+        }
+        .texto-restrito-cima {
+            position: absolute;
+            top: 0px;
+            left: 130px;
+            border: 1px solid #999;
+            color: #999;
+            font-size: 18px;
+            font-weight: bolder;
+            text-align: center;
+            padding: 1px 8px;
+        }
+        .texto-restrito-baixo {
+            position: absolute;
+            bottom: 0px;
+            left: 130px;
+            border: 1px solid #999;
+            color: #999;
+            font-size: 20px;
+            font-weight: bolder;
+            text-align: center;
+            padding: 1px 8px;
+        }
+
+        .header {
+            text-align: center;
+            line-height: 1.2;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+        .header .main-title { font-size: 11pt; }
+
+        .info-table, .identification-table {
+            width: 100%;
+            border-collapse: collapse;
+            border: 1px solid black;
+            margin-top: 0.5rem;
+            margin-bottom: 1rem;
+            width: 100%;
+        }
+        .info-table td, .identification-table td {
+            border: 1px solid black;
+            padding: 3px 6px;
+            vertical-align: top;
+        }
+        .info-table .label {
+            font-weight: bold;
+            width: 150px;
+            text-transform: uppercase;
+        }
+        .identification-header {
+            border: 1px solid black;
+            text-align: center;
+            font-weight: bold;
+            padding: 5px;
+            margin-bottom: -9px;
+            text-transform: uppercase;
+            margin-top: 10px;
+        }
+        .identification-table .photo-cell {
+            width: 130px;
+            font-weight: bold;
+            text-align: center;
+            vertical-align: middle;
+            text-transform: uppercase;
+        }
+        .identification-table .inner-table {
+            width: 100%;
+        }
+        .identification-table .inner-table td {
+            border: none;
+            padding: 1px 4px;
+        }
+        .identification-table .inner-table .label {
+            font-weight: bold;
+            width: 110px;
+            text-transform: uppercase;
+        }
+        .block-label {
+            font-weight: bold;
+            text-transform: uppercase;
+            border-left: 1px solid black;
+            border-right: 1px solid black;
+            border-top: 1px solid black;
+            text-align: center;
+        }
+        .block-content {
+            border-left: 1px solid black;
+            border-right: 1px solid black;
+            border-bottom: 1px solid black;
+            padding: 6px;
+            min-height: 100px;
+            white-space: pre-wrap;
+        }
