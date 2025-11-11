@@ -32,13 +32,11 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/home', function () {
 return view('home');
-})->name('home');
+})->name('home')->middleware(['auth', 'verified']);
 
-
-Route::get('/principal', [MainController::class, 'index']);
 
 Route::resource('/aluno', AlunoController::class);
 
-Route::get('/report/aluno', [AlunoController::class, 'report'])->name('report.aluno');
+Route::get('/report/aluno', [AlunoController::class, 'report'])->name('report.aluno')->middleware(['auth', 'verified']);
 
 require __DIR__.'/auth.php';

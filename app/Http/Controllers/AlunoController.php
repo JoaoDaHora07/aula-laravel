@@ -6,6 +6,7 @@ use App\Models\Aluno;
 use Illuminate\Http\Request;
 use App\Models\Curso;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Gate;
 
 class AlunoController extends Controller
 {
@@ -14,6 +15,8 @@ class AlunoController extends Controller
      */
     public function index()
     {
+        Gate::authorize("viewAny",Aluno::class);
+
         $alunos = Aluno::all();
         //dd($alunos);
         return view('aluno.index', compact('alunos'));
@@ -25,6 +28,7 @@ class AlunoController extends Controller
      */
     public function create()
     {
+        Gate::authorize('create', Aluno::class);
         $cursos = Curso::all();
         return view("aluno.create",compact('cursos'));
 
@@ -36,7 +40,7 @@ class AlunoController extends Controller
      */
     public function store(Request $request)
     {
-
+        Gate::authorize('create', Aluno::class);
         $curso = Curso::find($request->curso);
         if(isset($curso)){
             $aluno = new Aluno();
@@ -76,6 +80,7 @@ class AlunoController extends Controller
      */
     public function edit(string $id)
     {
+
         $aluno = Aluno::find($id);
 
 
@@ -96,6 +101,8 @@ class AlunoController extends Controller
     public function update(Request $request, string $id)
     {
         $aluno = Aluno::find($id);
+
+        Gate::authorize('update', $aluno);
 
         $aluno->nome = $request->nome;
         $aluno->curso = $request->curso;
@@ -125,6 +132,8 @@ class AlunoController extends Controller
 
 
         $aluno = Aluno::find($id);
+
+        Gate::authorize('delete', $aluno);
         
         $aluno->delete();
 

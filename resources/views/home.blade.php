@@ -4,6 +4,7 @@
         'cabecalho' => 'Home - Dashboard',
         'rota' => '',
         'relatorio' => '',
+        'class' => App\Models\Aluno::class,
     ]   
 )
 
